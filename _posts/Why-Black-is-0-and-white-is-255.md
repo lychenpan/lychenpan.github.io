@@ -3,7 +3,7 @@ author: John Doe
 date: 2018-01-20 19:07:33
 tags:
 ---
-This blog is to help to remeber clearly the function of each kind of morphological operations. Just like erosion and dilation, their effact are opposite, how to distinguish them? 
+This blog is to help to distinguish each kind of morphological operations. Just like erosion and dilation, their effact are opposite, how to remeber  them clearly? 
 
 ** Why Black is 0 and white is 255<br>In image processing, it is always hard to remember clearly about the gray level of black and white.  We can remember their gray levels by understanding how black and white comes.   **
 1. Firstly, we need to have a knowledge about RGB model,  Please refer [RGB color model](https://en.wikipedia.org/wiki/RGB_color_model), and RGB model is only for the light that comes directly from a light source.[Quora](https://www.quora.com/How-can-colors-like-black-or-white-be-made-with-the-RGB-color-model)
@@ -16,5 +16,3 @@ This blog is to help to remeber clearly the function of each kind of morphologic
    * Attention, the example image is white foreground and black background. In real situation, document is always white background and black foreground.
    * Opening: erosion followed by dilation,  [Erosion can remove little white noise, and make it disappear]
    * Closing: dilation followd by erosion, which can close small black holes **in white object**. The small holes will not appear because it is surrounded by white object.
-  
-  
