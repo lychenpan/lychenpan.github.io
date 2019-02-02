@@ -228,6 +228,316 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://smilecoder.cc/2018/03/01/Remove-long-lines-in-document/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lychenpan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hello Happiness">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/01/Remove-long-lines-in-document/" itemprop="url">Remove long lines in document</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-01T20:32:15+08:00">
+                2018-03-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">in</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/OCR/" itemprop="url" rel="index">
+                    <span itemprop="name">OCR</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>&emsp;Long lines (vertical or horizontal direction) are very common and special situations in printed document,<br>it will result in some unexpected result when performing OCR in document. So it is necessary to remove long lines<br>in pre-processing step of OCR.<br>&emsp;Here i will introduce one method to remove long vertical and horizontal line using morphological operations.<br>&emsp;Firstly, you can check this <a href="https://stackoverflow.com/questions/33949831/whats-the-way-to-remove-all-lines-and-borders-in-imagekeep-texts-programmatic?rq=1" target="_blank" rel="noopener">question</a>; u will get some ideas from here.</p>
+<p>&emsp;Key idea is that we use morphological operations to remove all possible characters, then extract long lines<br>from the left components using its size.<br>&emsp;In order to remove characters perfectly, here we assume that the size(width/height) of characters is a known<br>message. (If you are interested how to estimate the size of characters in a document image, you can refer my other<br>blog) </p>
+<h6 id="Algorithm"><a href="#Algorithm" class="headerlink" title="Algorithm"></a>Algorithm</h6><p>&emsp;Here we assume the document image is black background and white foreground. And assume the size of characters:<br>(width, height)<br>1.For simple case: there aren’t overlaps between long lines and characters.<br>&emsp;For horizontal lines:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Use a kernel (1, (width*1.5)) to dilate the image, this will remove all the black characters whose size is around (*, width);</span><br><span class="line">Use cv2.findCountours(binary_img) and cv2.boundingRect(contours) to extract the bounding of the left component;</span><br><span class="line">Extract long horizontal lines according to the ratio of width/height ratio. Remove other components;</span><br><span class="line">Erode the image with the kernel same with dilation step.</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;For vertial lines, the same method except the morphological operation should use the vertical kernel (height*1.5,1)<br>2.For complicated case: the long line cross some of the characters, such as underline, strikethrough. In this case,<br>when we remove the long lines, the overlaps will aslo be removed, which result in some characters are split to two<br>parts(especially for the strikethrough).<br>A better methods is that: when removing the lines, for the pixel in the line, we will first check the its upper and<br>lower pixels, if they are all black, we can judge that the pixel is a overlap, then the pixel will be kept.<br>We will use morphological operations to complete the judge process.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Erode image with kernel (3,1), to thicker the long line;</span><br><span class="line">Dialte image with kernel (1, width*1.5); </span><br><span class="line">Extract long lines according to left component&apos;s bounding box size, as img1;</span><br><span class="line">Use img1 bitwise_and with initial binary image, get img2;</span><br><span class="line">Calculate the pixels sum in height direction (axis=0) of img1 and img2 </span><br><span class="line">For each pixel in the line, if the img2&apos;s sum is larger than the img1&apos;s sum, we can judge this pixel is part of overlap</span><br></pre></td></tr></table></figure></p>
+<h6 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h6><p>Detail can refer my code <a href="https://github.com/lychenpan/little-tools-in-OCR/blob/master/ocr/pre-prcoess/remove_long_lines.py" target="_blank" rel="noopener">on github</a><br>This is the initial document image: <img src="initial.jpg" alt="initial"><br>Result of first simple algorithm: <img src="simple.jpg" alt="Simple process"><br>Result of the second algorithm: <img src="complicated.jpg" alt="Full process"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://smilecoder.cc/2018/02/12/Communication-between-different-AWS-VPCS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lychenpan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hello Happiness">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/02/12/Communication-between-different-AWS-VPCS/" itemprop="url">Ansible module to create AWS EndPoint Service</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-02-12T16:52:00+08:00">
+                2018-02-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="How-to-enable-connection-between-different-VPCs"><a href="#How-to-enable-connection-between-different-VPCs" class="headerlink" title="How to enable connection between different VPCs"></a>How to enable connection between different VPCs</h4><ol>
+<li>Public IP<br><br>It is easy; But the speed will dependes on public net; also </li>
+<li>VPC Peering;<br><br> After peering, two VPC share a same subnet. But it has a number limition.<a href="https://docs.aws.amazon.com/AmazonVPC/latest/PeeringGuide/vpc-peering-basics.html#vpc-peering-limitations" target="_blank" rel="noopener">(Detail)</a></li>
+<li>EndPoint Interface<br><br>High speed and safty.  But it is charged.</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Speed</th>
+<th>Safety</th>
+<th>Number limitation</th>
+<th>Cross Region</th>
+<th>Price </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>VPC Peering</td>
+<td>High</td>
+<td>High</td>
+<td><a href="https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Appendix_Limits.html#vpc-limits-peering" target="_blank" rel="noopener">(50/84)</a></td>
+<td>US East (N. Virginia), US West (Oregon), EU (Ireland), and US East (Ohio).</td>
+<td>Free</td>
+</tr>
+<tr>
+<td>EndPoint</td>
+<td>Good</td>
+<td>Good</td>
+<td>No limit</td>
+<td>Impossible</td>
+<td>High (in proportion to number of HUE VPCs) </td>
+</tr>
+<tr>
+<td>Public IP</td>
+<td>Low (possible to fix by route table)</td>
+<td>Low</td>
+<td>No limit</td>
+<td>Possible</td>
+<td>Free if OCR VPC not shutdown</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h4 id="Ansible-module-of-endPoint-Service"><a href="#Ansible-module-of-endPoint-Service" class="headerlink" title="Ansible module of endPoint Service"></a>Ansible module of endPoint Service</h4><p>In our project, we use endPoint to establish connection between two different VPCs.<br>However endPoint interface is a new technique borned around 11/2017, so ansible don’t have related module about endPoint interface and endPoint Service. The ec2_vpc_endpoint module(Ansible version 2.4) can only create endPoint gateway.<br><br>So i write a customer ansible module to create endPoint interface and endPoint service. Detail</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://smilecoder.cc/2018/01/20/Why-Black-is-0-and-white-is-255/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -309,8 +619,7 @@
 <ol>
 <li>Refer <a href="https://docs.opencv.org/3.0-beta/doc/py_tutorials/py_imgproc/py_morphological_ops/py_morphological_ops.html" target="_blank" rel="noopener">opencv document</a></li>
 <li>Some key points:  <ul>
-<li>Dilation and erosion is a kind of converlution operation. Dilation use the max value(Whiter value) and erosion use the min value(Black value) of the kernel.  So dilation increase white region, and erosion decrease the white region. </li>
-<li>Attention, the example image is white foreground and black background. In real situation, document is always white background and black foreground.</li>
+<li>Dilation and erosion is a kind of converlution operation. Dilation use the max value(Whiter value) and erosion use the min value(Black value) of the kernel.  So dilation increase white region, and erosion decrease the white region. (Attention, the image used in this scenario is white foreground and black background, which is opposite with common situation )</li>
 <li>Opening: erosion followed by dilation,  [Erosion can remove little white noise, and make it disappear]</li>
 <li>Closing: dilation followd by erosion, which can close small black holes <strong>in white object</strong>. The small holes will not appear because it is surrounded by white object.</li>
 </ul>
@@ -1139,10 +1448,7 @@
       
         
           
-            <blockquote>
-<p>不积跬步，无以至千里；不积小流，无以成江海</p>
-</blockquote>
-<ol>
+            <ol>
 <li>Hexo is a blog framwork basing on Nodejs. Less dependencies and easy to use.</li>
 <li>We use github to put our blog data.<br>About how to build a blog with Github and Hexo, <a href="https://gist.github.com/btfak/18938572f5df000ebe06fbd1872e4e39" target="_blank" rel="noopener">refer this</a></li>
 <li>Hexo Admin is an admin UI for the Hexo blog engine, also a <em>NICE</em> online editor of markdown. [<a href="https://github.com/jaredly/hexo-admin" target="_blank" rel="noopener">website</a>]</li>
@@ -1162,6 +1468,11 @@ Error: Cannot find module &apos;hexo-util&apos;
 <pre><code>npm config set registry https://registry.npm.taobao.org
 </code></pre></li>
 </ul>
+<p>Editing Blog:</p>
+<ol>
+<li>Use Hexo admin:  command <strong>hexo s</strong> in the root folder.</li>
+<li>About multi-pc synchronization:   <a href="https://juejin.im/post/5acf22e6f265da23994eeac9" target="_blank" rel="noopener">refer link</a>.  However, i don’t think cost so much time in the synchronization is worth.</li>
+</ol>
 
           
         
@@ -1243,7 +1554,7 @@ Error: Cannot find module &apos;hexo-util&apos;
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">Artikel</span>
                 </a>
               </div>
@@ -1254,7 +1565,7 @@ Error: Cannot find module &apos;hexo-util&apos;
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">Kategorien</span>
                 
               </div>
@@ -1265,7 +1576,7 @@ Error: Cannot find module &apos;hexo-util&apos;
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">Tags</span>
                 
               </div>

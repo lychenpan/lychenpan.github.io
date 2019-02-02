@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="lombok,java,self-record," />
+  <meta name="keywords" content="OCR,OpenCV," />
 
 
 
@@ -79,17 +79,21 @@
 
 
 
-<meta name="description" content="Use lombok’s annotation will reduce lots of redundant code in java, like getter and setter.Less talk, show the code 123456789101112@Data@AllArgsConstructor@NoArgsConstructor@Builderpublic class JobSta">
-<meta name="keywords" content="lombok,java,self-record">
+<meta name="description" content="&amp;emsp;Long lines (vertical or horizontal direction) are very common and special situations in printed document,it will result in some unexpected result when performing OCR in document. So it is necess">
+<meta name="keywords" content="OCR,OpenCV">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Custom lombok buider">
-<meta property="og:url" content="http://smilecoder.cc/2017/11/16/Custom-lombok-buider/index.html">
+<meta property="og:title" content="Remove long lines in document">
+<meta property="og:url" content="http://smilecoder.cc/2018/03/01/Remove-long-lines-in-document/index.html">
 <meta property="og:site_name" content="Hello Happiness">
-<meta property="og:description" content="Use lombok’s annotation will reduce lots of redundant code in java, like getter and setter.Less talk, show the code 123456789101112@Data@AllArgsConstructor@NoArgsConstructor@Builderpublic class JobSta">
-<meta property="og:updated_time" content="2018-01-24T02:03:17.538Z">
+<meta property="og:description" content="&amp;emsp;Long lines (vertical or horizontal direction) are very common and special situations in printed document,it will result in some unexpected result when performing OCR in document. So it is necess">
+<meta property="og:image" content="http://smilecoder.cc/2018/03/01/Remove-long-lines-in-document/initial.jpg">
+<meta property="og:image" content="http://smilecoder.cc/2018/03/01/Remove-long-lines-in-document/simple.jpg">
+<meta property="og:image" content="http://smilecoder.cc/2018/03/01/Remove-long-lines-in-document/complicated.jpg">
+<meta property="og:updated_time" content="2019-02-02T08:38:24.588Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Custom lombok buider">
-<meta name="twitter:description" content="Use lombok’s annotation will reduce lots of redundant code in java, like getter and setter.Less talk, show the code 123456789101112@Data@AllArgsConstructor@NoArgsConstructor@Builderpublic class JobSta">
+<meta name="twitter:title" content="Remove long lines in document">
+<meta name="twitter:description" content="&amp;emsp;Long lines (vertical or horizontal direction) are very common and special situations in printed document,it will result in some unexpected result when performing OCR in document. So it is necess">
+<meta name="twitter:image" content="http://smilecoder.cc/2018/03/01/Remove-long-lines-in-document/initial.jpg">
 
 
 
@@ -119,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://smilecoder.cc/2017/11/16/Custom-lombok-buider/"/>
+  <link rel="canonical" href="http://smilecoder.cc/2018/03/01/Remove-long-lines-in-document/"/>
 
 
 
 
 
-  <title>Custom lombok buider | Hello Happiness</title>
+  <title>Remove long lines in document | Hello Happiness</title>
   
 
 
@@ -232,7 +236,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://smilecoder.cc/2017/11/16/Custom-lombok-buider/">
+    <link itemprop="mainEntityOfPage" href="http://smilecoder.cc/2018/03/01/Remove-long-lines-in-document/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="lychenpan">
@@ -249,7 +253,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Custom lombok buider</h1>
+          <h1 class="post-title" itemprop="name headline">Remove long lines in document</h1>
         
 
         <div class="post-meta">
@@ -261,8 +265,8 @@
               
                 <span class="post-meta-item-text">Veröffentlicht am</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-11-16T18:09:00+08:00">
-                2017-11-16
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-01T20:32:15+08:00">
+                2018-03-01
               </time>
             
 
@@ -284,8 +288,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/self-record/" itemprop="url" rel="index">
-                    <span itemprop="name">self-record</span>
+                  <a href="/categories/OCR/" itemprop="url" rel="index">
+                    <span itemprop="name">OCR</span>
                   </a>
                 </span>
 
@@ -321,14 +325,11 @@
       
 
       
-        <p>Use lombok’s annotation will reduce lots of redundant code in java, like getter and setter.<br><br>Less talk, show the code</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">@Data</span><br><span class="line">@AllArgsConstructor</span><br><span class="line">@NoArgsConstructor</span><br><span class="line">@Builder</span><br><span class="line">public class JobStatusMessage &#123;</span><br><span class="line">    private String jobID;</span><br><span class="line">    @NonNull</span><br><span class="line">    private String status;</span><br><span class="line">    @NonNull</span><br><span class="line">    private String version;</span><br><span class="line">    private String error;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>In this way, we can construct the data class in a very easy way:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">JobStatusMessage jobStatusMessage = JobStatusMessage.builder()</span><br><span class="line">				.status(&quot;failed&quot;)</span><br><span class="line">                .version(&quot;18.01&quot;)</span><br><span class="line">                .error(ex.getMessage()).build();</span><br></pre></td></tr></table></figure>
-<p>Builder supply each setter method for each field. But it has limitition. What if we want to setter multi fields in one time.<br><br> We can cutom the builder this way:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">@Data</span><br><span class="line">@AllArgsConstructor</span><br><span class="line">@NoArgsConstructor</span><br><span class="line">@Builder</span><br><span class="line">public class JobStatusMessage &#123;</span><br><span class="line">    private String jobID;</span><br><span class="line">    @NonNull</span><br><span class="line">    private String status;</span><br><span class="line">    @NonNull</span><br><span class="line">    private String version;</span><br><span class="line">    private String error;</span><br><span class="line">    public static class JobStatusMessageBuilder &#123;</span><br><span class="line">        public JobStatusMessageBuilder success(String jobID, String status, String error) &#123;</span><br><span class="line">            return this.jobID(jobID).status(&quot;success&quot;).version(&quot;18.01&quot;).error(error);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>Then u can construct data object more eaiser way:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JobStatusMessage jobStatusMessage = JobStatusMessage.builder().success(&quot;test&quot;,&quot;test&quot;,&quot;test&quot;).build();</span><br></pre></td></tr></table></figure></p>
-<p>In the same time, filed setter function are still kept.</p>
-<p>TODO: why this works??</p>
+        <p>&emsp;Long lines (vertical or horizontal direction) are very common and special situations in printed document,<br>it will result in some unexpected result when performing OCR in document. So it is necessary to remove long lines<br>in pre-processing step of OCR.<br>&emsp;Here i will introduce one method to remove long vertical and horizontal line using morphological operations.<br>&emsp;Firstly, you can check this <a href="https://stackoverflow.com/questions/33949831/whats-the-way-to-remove-all-lines-and-borders-in-imagekeep-texts-programmatic?rq=1" target="_blank" rel="noopener">question</a>; u will get some ideas from here.</p>
+<p>&emsp;Key idea is that we use morphological operations to remove all possible characters, then extract long lines<br>from the left components using its size.<br>&emsp;In order to remove characters perfectly, here we assume that the size(width/height) of characters is a known<br>message. (If you are interested how to estimate the size of characters in a document image, you can refer my other<br>blog) </p>
+<h6 id="Algorithm"><a href="#Algorithm" class="headerlink" title="Algorithm"></a>Algorithm</h6><p>&emsp;Here we assume the document image is black background and white foreground. And assume the size of characters:<br>(width, height)<br>1.For simple case: there aren’t overlaps between long lines and characters.<br>&emsp;For horizontal lines:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Use a kernel (1, (width*1.5)) to dilate the image, this will remove all the black characters whose size is around (*, width);</span><br><span class="line">Use cv2.findCountours(binary_img) and cv2.boundingRect(contours) to extract the bounding of the left component;</span><br><span class="line">Extract long horizontal lines according to the ratio of width/height ratio. Remove other components;</span><br><span class="line">Erode the image with the kernel same with dilation step.</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;For vertial lines, the same method except the morphological operation should use the vertical kernel (height*1.5,1)<br>2.For complicated case: the long line cross some of the characters, such as underline, strikethrough. In this case,<br>when we remove the long lines, the overlaps will aslo be removed, which result in some characters are split to two<br>parts(especially for the strikethrough).<br>A better methods is that: when removing the lines, for the pixel in the line, we will first check the its upper and<br>lower pixels, if they are all black, we can judge that the pixel is a overlap, then the pixel will be kept.<br>We will use morphological operations to complete the judge process.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Erode image with kernel (3,1), to thicker the long line;</span><br><span class="line">Dialte image with kernel (1, width*1.5); </span><br><span class="line">Extract long lines according to left component&apos;s bounding box size, as img1;</span><br><span class="line">Use img1 bitwise_and with initial binary image, get img2;</span><br><span class="line">Calculate the pixels sum in height direction (axis=0) of img1 and img2 </span><br><span class="line">For each pixel in the line, if the img2&apos;s sum is larger than the img1&apos;s sum, we can judge this pixel is part of overlap</span><br></pre></td></tr></table></figure></p>
+<h6 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h6><p>Detail can refer my code <a href="https://github.com/lychenpan/little-tools-in-OCR/blob/master/ocr/pre-prcoess/remove_long_lines.py" target="_blank" rel="noopener">on github</a><br>This is the initial document image: <img src="initial.jpg" alt="initial"><br>Result of first simple algorithm: <img src="simple.jpg" alt="Simple process"><br>Result of the second algorithm: <img src="complicated.jpg" alt="Full process"></p>
 
       
     </div>
@@ -346,11 +347,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/lombok/" rel="tag"># lombok</a>
+            <a href="/tags/OCR/" rel="tag"># OCR</a>
           
-            <a href="/tags/java/" rel="tag"># java</a>
-          
-            <a href="/tags/self-record/" rel="tag"># self-record</a>
+            <a href="/tags/OpenCV/" rel="tag"># OpenCV</a>
           
         </div>
       
@@ -363,8 +362,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/11/16/Spring-parameter-validation-of-controller/" rel="next" title="Spring parameter validation of controller">
-                <i class="fa fa-chevron-left"></i> Spring parameter validation of controller
+              <a href="/2018/02/12/Communication-between-different-AWS-VPCS/" rel="next" title="Ansible module to create AWS EndPoint Service">
+                <i class="fa fa-chevron-left"></i> Ansible module to create AWS EndPoint Service
               </a>
             
           </div>
@@ -372,10 +371,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/12/27/Image-Binarization/" rel="prev" title="Image Binarization">
-                Image Binarization <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -425,8 +420,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Übersicht
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -488,6 +492,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-6"><a class="nav-link" href="#Algorithm"><span class="nav-number">1.</span> <span class="nav-text"><a href="#Algorithm" class="headerlink" title="Algorithm"></a>Algorithm</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Examples"><span class="nav-number">2.</span> <span class="nav-text"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

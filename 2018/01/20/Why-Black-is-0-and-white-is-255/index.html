@@ -85,7 +85,7 @@
 <meta property="og:url" content="http://smilecoder.cc/2018/01/20/Why-Black-is-0-and-white-is-255/index.html">
 <meta property="og:site_name" content="Hello Happiness">
 <meta property="og:description" content="This blog is to help to distinguish each kind of morphological operations. Just like erosion and dilation, their effact are opposite, how to remeber  them clearly?   Why Black is 0 and white is 255In">
-<meta property="og:updated_time" content="2018-01-24T02:10:42.386Z">
+<meta property="og:updated_time" content="2019-02-02T08:38:24.592Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Morphological operations">
 <meta name="twitter:description" content="This blog is to help to distinguish each kind of morphological operations. Just like erosion and dilation, their effact are opposite, how to remeber  them clearly?   Why Black is 0 and white is 255In">
@@ -308,8 +308,7 @@
 <ol>
 <li>Refer <a href="https://docs.opencv.org/3.0-beta/doc/py_tutorials/py_imgproc/py_morphological_ops/py_morphological_ops.html" target="_blank" rel="noopener">opencv document</a></li>
 <li>Some key points:  <ul>
-<li>Dilation and erosion is a kind of converlution operation. Dilation use the max value(Whiter value) and erosion use the min value(Black value) of the kernel.  So dilation increase white region, and erosion decrease the white region. </li>
-<li>Attention, the example image is white foreground and black background. In real situation, document is always white background and black foreground.</li>
+<li>Dilation and erosion is a kind of converlution operation. Dilation use the max value(Whiter value) and erosion use the min value(Black value) of the kernel.  So dilation increase white region, and erosion decrease the white region. (Attention, the image used in this scenario is white foreground and black background, which is opposite with common situation )</li>
 <li>Opening: erosion followed by dilation,  [Erosion can remove little white noise, and make it disappear]</li>
 <li>Closing: dilation followd by erosion, which can close small black holes <strong>in white object</strong>. The small holes will not appear because it is surrounded by white object.</li>
 </ul>
@@ -348,6 +347,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/02/12/Communication-between-different-AWS-VPCS/" rel="prev" title="Ansible module to create AWS EndPoint Service">
+                Ansible module to create AWS EndPoint Service <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -413,7 +416,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">Artikel</span>
                 </a>
               </div>
@@ -424,7 +427,7 @@
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">Kategorien</span>
                 
               </div>
@@ -435,7 +438,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">Tags</span>
                 
               </div>
