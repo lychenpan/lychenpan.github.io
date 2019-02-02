@@ -1,5 +1,5 @@
 title: Image Binarization
-author: John Doe
+author: ChenPan
 tags: []
 categories: []
 date: 2017-12-27 18:29:00
