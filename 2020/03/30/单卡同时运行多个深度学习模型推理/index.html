@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="lombok,java,self-record," />
+  <meta name="keywords" content="multiprocessing,inference,deep learning," />
 
 
 
@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="Use lombok’s annotation will reduce lots of redundant code in java, like getter and setter.Less talk, show the code 123456789101112@Data@AllArgsConstructor@NoArgsConstructor@Builderpublic class JobSta">
-<meta name="keywords" content="lombok,java,self-record">
+<meta name="description" content="应用场景：当多个深度学习模型（基于pytorch或者tensorflow）需要部署在一台服务器或者一张GPU显卡时，可以通过multiprocessing实现模型推理的并行，从而节省整体运行时间。 方法：生产者消费者模型，然后将不同的模型放在不同的 multiprocessing.Process 中进行处理； 采用JoinableQueue 进行不同进程之间的数据同步。 踩过的坑： 将模型的初始化">
+<meta name="keywords" content="multiprocessing,inference,deep learning">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Custom lombok buider">
-<meta property="og:url" content="http://smilecoder.cc/2017/11/16/Custom-lombok-buider/index.html">
+<meta property="og:title" content="单卡同时运行多个深度学习模型推理">
+<meta property="og:url" content="http://smilecoder.cc/2020/03/30/单卡同时运行多个深度学习模型推理/index.html">
 <meta property="og:site_name" content="Hello Happiness">
-<meta property="og:description" content="Use lombok’s annotation will reduce lots of redundant code in java, like getter and setter.Less talk, show the code 123456789101112@Data@AllArgsConstructor@NoArgsConstructor@Builderpublic class JobSta">
-<meta property="og:updated_time" content="2018-01-24T02:03:17.538Z">
+<meta property="og:description" content="应用场景：当多个深度学习模型（基于pytorch或者tensorflow）需要部署在一台服务器或者一张GPU显卡时，可以通过multiprocessing实现模型推理的并行，从而节省整体运行时间。 方法：生产者消费者模型，然后将不同的模型放在不同的 multiprocessing.Process 中进行处理； 采用JoinableQueue 进行不同进程之间的数据同步。 踩过的坑： 将模型的初始化">
+<meta property="og:updated_time" content="2020-03-30T13:37:02.396Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Custom lombok buider">
-<meta name="twitter:description" content="Use lombok’s annotation will reduce lots of redundant code in java, like getter and setter.Less talk, show the code 123456789101112@Data@AllArgsConstructor@NoArgsConstructor@Builderpublic class JobSta">
+<meta name="twitter:title" content="单卡同时运行多个深度学习模型推理">
+<meta name="twitter:description" content="应用场景：当多个深度学习模型（基于pytorch或者tensorflow）需要部署在一台服务器或者一张GPU显卡时，可以通过multiprocessing实现模型推理的并行，从而节省整体运行时间。 方法：生产者消费者模型，然后将不同的模型放在不同的 multiprocessing.Process 中进行处理； 采用JoinableQueue 进行不同进程之间的数据同步。 踩过的坑： 将模型的初始化">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://smilecoder.cc/2017/11/16/Custom-lombok-buider/"/>
+  <link rel="canonical" href="http://smilecoder.cc/2020/03/30/单卡同时运行多个深度学习模型推理/"/>
 
 
 
 
 
-  <title>Custom lombok buider | Hello Happiness</title>
+  <title>单卡同时运行多个深度学习模型推理 | Hello Happiness</title>
   
 
 
@@ -232,7 +232,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://smilecoder.cc/2017/11/16/Custom-lombok-buider/">
+    <link itemprop="mainEntityOfPage" href="http://smilecoder.cc/2020/03/30/单卡同时运行多个深度学习模型推理/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="lychenpan">
@@ -249,7 +249,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Custom lombok buider</h1>
+          <h1 class="post-title" itemprop="name headline">单卡同时运行多个深度学习模型推理</h1>
         
 
         <div class="post-meta">
@@ -261,8 +261,8 @@
               
                 <span class="post-meta-item-text">Veröffentlicht am</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-11-16T18:09:00+08:00">
-                2017-11-16
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-30T21:20:00+08:00">
+                2020-03-30
               </time>
             
 
@@ -284,8 +284,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/self-record/" itemprop="url" rel="index">
-                    <span itemprop="name">self-record</span>
+                  <a href="/categories/Backend/" itemprop="url" rel="index">
+                    <span itemprop="name">Backend</span>
                   </a>
                 </span>
 
@@ -321,14 +321,11 @@
       
 
       
-        <p>Use lombok’s annotation will reduce lots of redundant code in java, like getter and setter.<br><br>Less talk, show the code</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">@Data</span><br><span class="line">@AllArgsConstructor</span><br><span class="line">@NoArgsConstructor</span><br><span class="line">@Builder</span><br><span class="line">public class JobStatusMessage &#123;</span><br><span class="line">    private String jobID;</span><br><span class="line">    @NonNull</span><br><span class="line">    private String status;</span><br><span class="line">    @NonNull</span><br><span class="line">    private String version;</span><br><span class="line">    private String error;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>In this way, we can construct the data class in a very easy way:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">JobStatusMessage jobStatusMessage = JobStatusMessage.builder()</span><br><span class="line">				.status(&quot;failed&quot;)</span><br><span class="line">                .version(&quot;18.01&quot;)</span><br><span class="line">                .error(ex.getMessage()).build();</span><br></pre></td></tr></table></figure>
-<p>Builder supply each setter method for each field. But it has limitition. What if we want to setter multi fields in one time.<br><br> We can cutom the builder this way:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">@Data</span><br><span class="line">@AllArgsConstructor</span><br><span class="line">@NoArgsConstructor</span><br><span class="line">@Builder</span><br><span class="line">public class JobStatusMessage &#123;</span><br><span class="line">    private String jobID;</span><br><span class="line">    @NonNull</span><br><span class="line">    private String status;</span><br><span class="line">    @NonNull</span><br><span class="line">    private String version;</span><br><span class="line">    private String error;</span><br><span class="line">    public static class JobStatusMessageBuilder &#123;</span><br><span class="line">        public JobStatusMessageBuilder success(String jobID, String status, String error) &#123;</span><br><span class="line">            return this.jobID(jobID).status(&quot;success&quot;).version(&quot;18.01&quot;).error(error);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>Then u can construct data object more eaiser way:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JobStatusMessage jobStatusMessage = JobStatusMessage.builder().success(&quot;test&quot;,&quot;test&quot;,&quot;test&quot;).build();</span><br></pre></td></tr></table></figure></p>
-<p>In the same time, filed setter function are still kept.</p>
-<p>TODO: why this works??</p>
+        <h5 id="应用场景："><a href="#应用场景：" class="headerlink" title="应用场景："></a>应用场景：</h5><p>当多个深度学习模型（基于pytorch或者tensorflow）需要部署在一台服务器或者一张GPU显卡时，可以通过multiprocessing实现模型推理的并行，从而节省整体运行时间。</p>
+<h5 id="方法："><a href="#方法：" class="headerlink" title="方法："></a>方法：</h5><p>生产者消费者模型，然后将不同的模型放在不同的 <strong>multiprocessing.Process</strong> 中进行处理； 采用JoinableQueue 进行不同进程之间的数据同步。</p>
+<h6 id="踩过的坑："><a href="#踩过的坑：" class="headerlink" title="踩过的坑："></a>踩过的坑：</h6><ol>
+<li>将模型的初始化放在主进程，然后将模型的inference，postprocess放在子进程是不可行的； 系统会报 recursion exceed maximum.  </li>
+</ol>
 
       
     </div>
@@ -346,11 +343,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/lombok/" rel="tag"># lombok</a>
+            <a href="/tags/multiprocessing/" rel="tag"># multiprocessing</a>
           
-            <a href="/tags/java/" rel="tag"># java</a>
+            <a href="/tags/inference/" rel="tag"># inference</a>
           
-            <a href="/tags/self-record/" rel="tag"># self-record</a>
+            <a href="/tags/deep-learning/" rel="tag"># deep learning</a>
           
         </div>
       
@@ -363,15 +360,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2018/03/01/Remove-long-lines-in-document/" rel="next" title="Remove long lines in document">
+                <i class="fa fa-chevron-left"></i> Remove long lines in document
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/12/27/Image-Binarization/" rel="prev" title="Image Binarization">
-                Image Binarization <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -421,8 +418,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Übersicht
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -484,6 +490,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#应用场景："><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x5E94;&#x7528;&#x573A;&#x666F;&#xFF1A;" class="headerlink" title="&#x5E94;&#x7528;&#x573A;&#x666F;&#xFF1A;"></a>&#x5E94;&#x7528;&#x573A;&#x666F;&#xFF1A;</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#方法："><span class="nav-number">2.</span> <span class="nav-text"><a href="#&#x65B9;&#x6CD5;&#xFF1A;" class="headerlink" title="&#x65B9;&#x6CD5;&#xFF1A;"></a>&#x65B9;&#x6CD5;&#xFF1A;</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#踩过的坑："><span class="nav-number">2.1.</span> <span class="nav-text"><a href="#&#x8E29;&#x8FC7;&#x7684;&#x5751;&#xFF1A;" class="headerlink" title="&#x8E29;&#x8FC7;&#x7684;&#x5751;&#xFF1A;"></a>&#x8E29;&#x8FC7;&#x7684;&#x5751;&#xFF1A;</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
